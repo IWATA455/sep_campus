@@ -7,44 +7,49 @@ Meiro2.vcxproj.filters
 Tetolisu.vcxproj.user
 YamanoTe.vcxproj.user
 
-[ Ll ] ibrary /
-[ Tt ] emp /
-[ Oo ] bj /
-[ Bb ] uild /
-[ Bb ] uilds /
-ƒAƒZƒbƒg / AssetStoreTools *
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+Asset/AssetStoreTools*
 
-” Visual Studio‚ÌƒLƒƒƒbƒVƒ…ƒfƒBƒŒƒNƒgƒŠ
+”Visual Studio‚ÌƒLƒƒƒbƒVƒ…ƒfƒBƒŒƒNƒgƒŠ
 .vs /
 
 ”©“®¶¬‚³‚ê‚½VS / MD / Consuloƒ\ƒŠƒ…[ƒVƒ‡ƒ“‚¨‚æ‚ÑƒvƒƒWƒFƒNƒgƒtƒ@ƒCƒ‹
 ExportedObj /
 .consulo /
-* .csproj
-* .unityproj
-* .sln
-* .suo
-* .tmp
-* .user
-* .userprefs
-* .pidb
-* .booproj
-* .svd
-* .pdb
-* .opendb
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
 
 ” Unity3D‚ª¶¬‚µ‚½ƒƒ^ƒtƒ@ƒCƒ‹
-* .pidb.meta
-* .pdb.meta
+*.pidb.meta
+*.pdb.meta
 
 ”ƒNƒ‰ƒbƒVƒ…ƒŒƒ|[ƒg‚ÅUnity3D‚ª¶¬‚µ‚½ƒtƒ@ƒCƒ‹
 sysinfo.txt
 
 ”ƒrƒ‹ƒh
-* .apk
-* .unitypackage
+<<<<<<< HEAD
+*.apk
+*.unitypackage
 
 Tetris/Library
 Tetris/Temp
 Tetris/Logs
 
+=======
+* .apk
+* .unitypackage
+>>>>>>> parent of 6636ac9... ã‚³ãƒŸãƒƒãƒˆã™ã‚‹ï¼“
