@@ -49,7 +49,6 @@ Tetris/Library
 Tetris/Temp
 Tetris/Logs
 
-=======
-* .apk
-* .unitypackage
->>>>>>> parent of 6636ac9... コミットする３
+$ git config diff.sjis.textconv "iconv -f sjis"
+[diff "sjis"]
+    textconv = iconv -f sjis
