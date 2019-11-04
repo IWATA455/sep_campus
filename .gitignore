@@ -47,7 +47,3 @@ sysinfo.txt
 Tetris/Library
 Tetris/Temp
 Tetris/Logs
-
-$ git config diff.sjis.textconv "iconv -f sjis"
-[diff "sjis"]
-    textconv = iconv -f sjis
