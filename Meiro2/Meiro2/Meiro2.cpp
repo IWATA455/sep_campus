@@ -43,153 +43,135 @@ int main()
 		Max
 	};
 	int CreateNum = rand() % 4;
-	int rootNum = 0;
-	//３マスづつ生成
-	for (int i = 0; i < 3; i++)
-	{
-		if (CreateNum == Up)
-		{
-			G_Save_Y--;
-			Meiro[G_Save_Y][G_Save_X] = 0;
-		}
-		if (CreateNum == Down)
-		{
-			G_Save_Y++;
-			Meiro[G_Save_Y][G_Save_X] = 0;
-		}
-		if (CreateNum == Right)
-		{
-			G_Save_X++;
-			Meiro[G_Save_Y][G_Save_X] = 0;
-		}
-		if (CreateNum == left)
-		{
-			G_Save_X--;
-			Meiro[G_Save_Y][G_Save_X] = 0;
-		}
-	}
-	Meiro[G_Y][G_X] = 2;
+	
+	
 	while (!G_Flag)
 	{
-		/*rootNum = rand() % 4;
-		for (int i = 0; i < 3; i++)
+		Num = 0;
+		for (int i = 1; i < 4; i++)
 		{
 			if (CreateNum == Up)
 			{
-				if (rootNum == Up)
+				if (Meiro[G_Save_Y+i][G_Save_X]==1)
 				{
-					G_Save_Y--;
-					Meiro[G_Save_Y][G_Save_X] = 0;
-				}
-				if (rootNum == Right)
-				{
-					G_Save_X++;
-					Meiro[G_Save_Y][G_Save_X] = 0;
-				}
-				if (rootNum == left)
-				{
-					G_Save_X--;
-					Meiro[G_Save_Y][G_Save_X] = 0;
+					Num++;
 				}
 			}
-			else if (CreateNum == Down)
+			if (CreateNum == Down)
 			{
-				if (rootNum == Down)
+				if (Meiro[G_Save_Y+i][G_Save_X] == 1)
 				{
-					G_Save_Y++;
-					Meiro[G_Save_Y][G_Save_X] = 0;
-				}
-				if (rootNum == Right)
-				{
-					G_Save_X++;
-					Meiro[G_Save_Y][G_Save_X] = 0;
-				}
-				if (rootNum == left)
-				{
-					G_Save_X--;
-					Meiro[G_Save_Y][G_Save_X] = 0;
+					Num++;
 				}
 			}
-			else if (CreateNum == Right)
+			if (CreateNum == Right)
 			{
-				if (rootNum == Up)
+				if (Meiro[G_Save_Y][G_Save_X+i] == 1)
 				{
-					G_Save_Y--;
-					Meiro[G_Save_Y][G_Save_X] = 0;
-				}
-				if (rootNum == Down)
-				{
-					G_Save_Y++;
-					Meiro[G_Save_Y][G_Save_X] = 0;
-				}
-				if (rootNum == Right)
-				{
-					G_Save_X++;
-					Meiro[G_Save_Y][G_Save_X] = 0;
+					Num++;
 				}
 			}
-			else if (CreateNum == left)
+			if (CreateNum == left)
 			{
-				if (rootNum == Up)
+				if (Meiro[G_Save_Y][G_Save_X-i] == 1)
 				{
-					G_Save_Y--;
-					Meiro[G_Save_Y][G_Save_X] = 0;
-				}
-				if (rootNum == Down)
-				{
-					G_Save_Y++;
-					Meiro[G_Save_Y][G_Save_X] = 0;
-				}
-				if (rootNum == left)
-				{
-					G_Save_X--;
-					Meiro[G_Save_Y][G_Save_X] = 0;
+					Num++;
 				}
 			}
-			if (G_Save_X >= Map_X-1 || G_Save_X <= 0|| G_Save_Y >= Map_Y - 1 || G_Save_Y <= 0)
-			{
-				G_Flag = true;
-			}
-		}*/
-		//壁に当たる
-		
-		for (int i = 0; i < 3; i++)
+		}
+		if (Num == 3)
 		{
-			if (Meiro[G_Save_Y][G_Save_X] ==0)
+			for (int i = 0; i < 3; i++)
 			{
-				
+				if (CreateNum == Up)
+				{
+					G_Save_Y--;
+					Meiro[G_Save_Y][G_Save_X] = 0;
+				}
+				if (CreateNum == Down)
+				{
+					G_Save_Y++;
+					Meiro[G_Save_Y][G_Save_X] = 0;
+				}
+				if (CreateNum == Right)
+				{
+					G_Save_X++;
+					Meiro[G_Save_Y][G_Save_X] = 0;
+
+				}
+				if (CreateNum == left)
+				{
+					G_Save_X--;
+					Meiro[G_Save_Y][G_Save_X] = 0;
+				}
 			}
+		}
+		/*for (int i = 0; i < 3; i++)
+		{
 			if (CreateNum == Up)
 			{
 				G_Save_Y--;
-				Meiro[G_Save_Y][G_Save_X] = 0;
+				if (Meiro[G_Save_Y][G_Save_X] == 1)
+				{
+					Meiro[G_Save_Y][G_Save_X] = 0;
+				}
+				else
+				{
+					G_Save_Y++;
+					break;
+				}
 			}
 			if (CreateNum == Down)
 			{
 				G_Save_Y++;
-				Meiro[G_Save_Y][G_Save_X] = 0;
+				if (Meiro[G_Save_Y][G_Save_X] == 1)
+				{
+					Meiro[G_Save_Y][G_Save_X] = 0;
+				}
+				else
+				{
+					G_Save_Y--;
+					break;
+				}
 			}
 			if (CreateNum == Right)
 			{
 				G_Save_X++;
-				Meiro[G_Save_Y][G_Save_X] = 0;
+				if (Meiro[G_Save_Y][G_Save_X] == 1)
+				{
+					Meiro[G_Save_Y][G_Save_X] = 0;
+				}
+				else
+				{
+					G_Save_X--;
+					break;
+				}
 			}
 			if (CreateNum == left)
 			{
 				G_Save_X--;
-				Meiro[G_Save_Y][G_Save_X] = 0;
+				if (Meiro[G_Save_Y][G_Save_X] == 1)
+				{
+					Meiro[G_Save_Y][G_Save_X] = 0;
+					
+				}
+				else
+				{
+					G_Save_X++;
+					break;
+				}
 			}
 			
-		}
-		Meiro[G_Y][G_X] = 2;
-
-		//壁に当たる
-		if (G_Save_X > Map_X || G_Save_Y > Map_Y)
+			//壁に当たる
+			
+		}*/
+		if (G_Save_X >= Map_X - 1 || G_Save_Y >= Map_Y - 1)
 		{
 			G_Flag = true;
 		}
+		CreateNum = rand() % 4;
 	}
-
+	Meiro[G_Y][G_X] = 2;
 
 	//表示
 	for (int i = 0; i < Map_Y; i++)
