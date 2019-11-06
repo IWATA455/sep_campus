@@ -30,9 +30,15 @@ public class Board2Script : MonoBehaviour
     int[,] Zangai = new int[MapHeight, MapWidth];
     int[,] ZangaiSave = new int[MapHeight, MapWidth];
     int[,] Save = new int[BrockNum, BrockNum];
-    int[,,] Brock = new int[,,]
+    int[,] Brock = new int[,]
     {
-            {
+          
+                    { 0,0,0,0},
+                    { 0,0,0,0},
+                    { 2,2,2,2},
+                    { 0,2,0,0},
+            
+           /* {
                     { 0,0,0,0},
                     { 0,0,0,0},
                     { 2,2,2,2},
@@ -49,13 +55,7 @@ public class Board2Script : MonoBehaviour
                     { 0,0,0,0},
                     { 2,2,2,2},
                     { 0,2,0,0},
-            },
-            {
-                    { 0,0,0,0},
-                    { 0,0,0,0},
-                    { 2,2,2,2},
-                    { 0,2,0,0},
-            },
+            },*/
         };
 
     [SerializeField] GameObject _Bodarblock = null;
@@ -143,8 +143,8 @@ public class Board2Script : MonoBehaviour
           {
               for (int j = 0; j < BrockNum; j++)
               {
-                  Map[i + NumHight, j + NumWidth] = Brock[Id,i, j];
-                  MapDrwa[i + NumHight, j + NumWidth] = Brock[Id,i, j];
+                  Map[i + NumHight, j + NumWidth] = Brock[i, j];
+                  MapDrwa[i + NumHight, j + NumWidth] = Brock[i, j];
               }
           }
           for (int i = 0; i < MapHeight; i++)
