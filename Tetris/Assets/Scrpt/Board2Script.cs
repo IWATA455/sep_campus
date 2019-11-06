@@ -14,7 +14,7 @@ public class Board2Script : MonoBehaviour
 
     //初期化
     int NumWidth = initPos;
-    int NumHight = 10;
+    int NumHight = 15;
     int Num = 0;
     int Id = 0;
 
@@ -30,32 +30,34 @@ public class Board2Script : MonoBehaviour
     int[,] Zangai = new int[MapHeight, MapWidth];
     int[,] ZangaiSave = new int[MapHeight, MapWidth];
     int[,] Save = new int[BrockNum, BrockNum];
-    int[,] Brock = new int[,]
+    int[,,] Brock = new int[,,]
     {
           
+            {
+                    { 0,0,0,0},
+                    { 0,0,0,0},
+                    { 0,2,0,0},
+                    { 2,2,2,0},
+            },
+            {
                     { 0,0,0,0},
                     { 0,0,0,0},
                     { 2,2,2,2},
+                    { 0,0,0,0},
+            },
+            {
+                    { 0,0,0,0},
                     { 0,2,0,0},
+                    { 0,2,0,0},
+                    { 0,2,2,0},
+            },
+            {
+                    { 0,0,0,0},
+                    { 0,0,2,0},
+                    { 0,0,2,0},
+                    { 0,2,2,0},
+            },
             
-           /* {
-                    { 0,0,0,0},
-                    { 0,0,0,0},
-                    { 2,2,2,2},
-                    { 0,2,0,0},
-            },
-            {
-                    { 0,0,0,0},
-                    { 0,0,0,0},
-                    { 2,2,2,2},
-                    { 0,2,0,0},
-            },
-            {
-                    { 0,0,0,0},
-                    { 0,0,0,0},
-                    { 2,2,2,2},
-                    { 0,2,0,0},
-            },*/
         };
 
     [SerializeField] GameObject _Bodarblock = null;
@@ -69,7 +71,7 @@ public class Board2Script : MonoBehaviour
     GameObject[,] PlayerObject = new GameObject[MapHeight, MapWidth];
     void Start()
     {
-        for (int i = MapHeight - 1; i > 0; i--)
+        for (int i = MapHeight - 2; i > 0; i--)
         {
             for (int j = 0; j < MapWidth; j++)
             {
@@ -77,32 +79,11 @@ public class Board2Script : MonoBehaviour
             }
         }
 
-        /*for (int i = 0; i < BrockNum; i++)
-        {
-            for (int j = 0; j < BrockNum; j++)
-            {
-                MapDrwa[i , j] = Brock[ i, j];
-            }
-        }*/
-      
         for (int i = MapHeight - 1; i > 0; i--)
         {
             for (int j = 0; j < MapWidth; j++)
             {
                 Zangai[i, j] = 0;
-
-               /* if (MapDrwa[i, j] == 0)
-                {
-                    BodarObject[i, j] = GameObject.Instantiate<GameObject>(_Bodarblock);
-                    BodarObject[i, j].transform.localPosition = new Vector3(j, i, 0);
-                    BodarObj[i, j] = BodarObject[i, j];
-                }
-                if (MapDrwa[i, j] == 1)
-                {
-                    PlayerObject[i, j] = GameObject.Instantiate<GameObject>(_Playerblock);
-                    PlayerObject[i, j].transform.localPosition = new Vector3(j, i, 0);
-                    Obj[i, j] = PlayerObject[i, j];
-                }*/
             }
         }
         
@@ -131,22 +112,30 @@ public class Board2Script : MonoBehaviour
                ZangaiSave[i, j] = 0;    
             }
         }
-         /*for (int i = 0; i < BrockNum; i++)
+         for (int i = 0; i < BrockNum; i++)
          {
              for (int j = 0; j < BrockNum; j++)
              {
                  Save[i, j] = 0;
              }
-         }*/
+         }
         //ブロックをマップに
-          for (int i = BrockNum-1; i > 0; i--)
+          for (int i = 0; i < BrockNum; i++)
           {
               for (int j = 0; j < BrockNum; j++)
               {
-                  Map[i + NumHight, j + NumWidth] = Brock[i, j];
-                  MapDrwa[i + NumHight, j + NumWidth] = Brock[i, j];
+                Debug.Log(NumWidth);
+                if (NumHight - i > 0)
+                {
+                    if (NumWidth + j <= 15)
+                    {
+                        Map[NumHight - i, j + NumWidth] = Brock[Id, i, j];
+                        MapDrwa[NumHight - i, j + NumWidth] = Brock[Id, i, j];
+                    }
+                }
               }
           }
+        
           for (int i = 0; i < MapHeight; i++)
           {
               for (int j = 0; j < MapWidth; j++)
@@ -161,16 +150,58 @@ public class Board2Script : MonoBehaviour
             num = 0;
         }
         //キー
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (NumWidth >= 1)
         {
-            NumWidth--;
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                NumWidth--;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (NumWidth + 3 <= MapWidth - 1)
         {
-            NumWidth++;
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                NumWidth++;
+            }
         }
-        //判定
-        for (int i = 0; i < MapHeight; i++)
+        //回転
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            for (int i = BrockNum; i > 0; i--)
+            {
+                for (int j = 0; j < BrockNum; j++)
+                {
+
+                    Save[j,BrockNum - i] = Brock[Id, i - 1,j];
+                }
+            }
+            for (int i = 0; i < BrockNum; i++)
+            {
+                for (int j = 0; j < BrockNum; j++)
+                {
+                    Brock[Id, i,j] = Save[i,j];
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            for (int i = BrockNum; i > 0; i--)
+            {
+                for (int j = BrockNum; j > 0; j--)
+                {
+                    Save[BrockNum - j,i - 1] = Brock[Id, i - 1,j - 1];
+                }
+            }
+            for (int i = 0; i < BrockNum; i++)
+            {
+                for (int j = 0; j < BrockNum; j++)
+                {
+                    Brock[Id, i,j] = Save[i,j];
+                }
+            }
+        }
+            //判定
+            for (int i = 0; i < MapHeight; i++)
          {
              for (int j = 0; j < MapWidth; j++)
              {
@@ -182,26 +213,26 @@ public class Board2Script : MonoBehaviour
          }
          if (HitFlag)
          {
-             NumWidth = initPos;
-             NumHight = 10;
-             for (int i = 0; i < MapHeight; i++)
+            NumWidth = initPos;
+            NumHight = MapHeight-1;
+            for (int i = 0; i < MapHeight; i++)
              {
                  for (int j = 0; j < MapWidth; j++)
                  {
                      Zangai[i, j] += Map[i, j];
                  }
              }
-            // Id = Random.Range(0, ID);
+            Id = Random.Range(0, ID);
              HitFlag = false;
          }
          //一番下にブロックがいたら
 
          for(int k =0;k<MapWidth;k++)
         {
-            if (Map[1, k] > 1)
+            if (Map[1, k] >= 1)
             {
                 NumWidth = initPos;
-                NumHight = 10;
+                NumHight = MapHeight-1;
                 for (int i = 0; i < MapHeight; i++)
                 {
                     for (int j = 0; j < MapWidth; j++)
@@ -209,8 +240,9 @@ public class Board2Script : MonoBehaviour
                         Zangai[i, j] += Map[i, j];
                     }
                 }
+                Id = Random.Range(0, ID);
             }
-             //Id = Random.Range(0, ID);
+            
          }
 
         //列揃ったら
