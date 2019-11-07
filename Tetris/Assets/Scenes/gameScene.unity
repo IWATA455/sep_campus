@@ -187,12 +187,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8520819308222071516, guid: d97d6801274dc474887545a8097e319f,
-        type: 3}
-      propertyPath: _Playerblock
-      value: 
-      objectReference: {fileID: 6319951165585162081, guid: 5f8176f4c5b14d949a167c9e19eeb03c,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d97d6801274dc474887545a8097e319f, type: 3}
 --- !u!1 &705507993
@@ -205,6 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
+  - component: {fileID: 705507996}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -286,6 +281,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &705507996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705507993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5988f8288ad30e94da50f09e97a06530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1118094284
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +304,7 @@ GameObject:
   - component: {fileID: 1118094285}
   - component: {fileID: 1118094287}
   - component: {fileID: 1118094286}
+  - component: {fileID: 1118094288}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -400,6 +408,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1118094288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118094284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5988f8288ad30e94da50f09e97a06530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1213791319
 GameObject:
   m_ObjectHideFlags: 0

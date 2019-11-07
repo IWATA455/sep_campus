@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scrpt\Board2Script.cs" />
      <Compile Include="Assets\Scrpt\BoardScript.cs" />
      <Compile Include="Assets\Scrpt\EnvironScript1.cs" />
+     <Compile Include="Assets\Scrpt\KeyScript.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/touho/Tetris/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
