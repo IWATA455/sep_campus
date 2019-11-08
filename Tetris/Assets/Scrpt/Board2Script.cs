@@ -8,14 +8,13 @@ public class Board2Script : MonoBehaviour
     const int Flem = 60;
     const int MapWidth = 16;
     const int MapHeight = 16;
-    const int BrockNum = 4;
-    const int ID = 4;
-    const int initPos = 8;
+    const int BrockNum = 5;
+    const int ID = 7;
+    const int initPos = 7;
 
     //初期化
     int NumWidth = initPos;
     int NumHight = 15;
-    int Num = 0;
     int Id = 0;
 
     Vector3 Position;
@@ -24,6 +23,7 @@ public class Board2Script : MonoBehaviour
    //生成するゲームオブジェクト
    //public GameObject BoardBlock;
    //public GameObject PlayerBlock;
+   
 
     int[,] Map = new int[MapHeight, MapWidth];
     int[,] MapDrwa = new int[MapHeight, MapWidth];
@@ -34,30 +34,55 @@ public class Board2Script : MonoBehaviour
     {
           
             {
-                    { 0,0,0,0},
-                    { 0,0,0,0},
-                    { 0,2,0,0},
-                    { 2,2,2,0},
+                    { 0,0,0,0,0},
+                    { 0,2,2,0,0},
+                    { 0,2,2,0,0},
+                    { 0,0,0,0,0},
+                    { 0,0,0,0,0},
             },
             {
-                    { 0,0,0,0},
-                    { 0,0,0,0},
-                    { 2,2,2,2},
-                    { 0,0,0,0},
+                    { 0,0,0,0,0},
+                    { 0,0,2,0,0},
+                    { 0,0,2,0,0},
+                    { 0,0,2,0,0},
+                    { 0,0,2,0,0},
             },
             {
-                    { 0,0,0,0},
-                    { 2,0,0,0},
-                    { 2,0,0,0},
-                    { 2,2,0,0},
+                    { 0,0,0,0,0},
+                    { 0,0,2,0,0},
+                    { 0,2,2,2,0},
+                    { 0,0,0,0,0},
+                    { 0,0,0,0,0},
             },
             {
-                    { 0,0,0,0},
-                    { 0,2,0,0},
-                    { 0,2,0,0},
-                    { 2,2,0,0},
+                    { 0,0,0,0,0},
+                    { 0,0,0,0,0},
+                    { 0,2,2,0,0},
+                    { 0,0,2,2,0},
+                    { 0,0,0,0,0},
             },
-            
+            {
+                    { 0,0,0,0,0},
+                    { 0,0,0,0,0},
+                    { 0,0,2,2,0},
+                    { 0,2,2,0,0},
+                    { 0,0,0,0,0},
+            },
+            {
+                    { 0,0,0,0,0},
+                    { 0,2,0,0,0},
+                    { 0,2,2,2,0},
+                    { 0,0,0,0,0},
+                    { 0,0,0,0,0},
+            },
+            {
+                    { 0,0,0,0,0},
+                    { 0,0,0,2,0},
+                    { 0,2,2,2,0},
+                    { 0,0,0,0,0},
+                    { 0,0,0,0,0},
+            },
+
         };
 
     [SerializeField] GameObject _Bodarblock = null;
@@ -71,6 +96,7 @@ public class Board2Script : MonoBehaviour
     GameObject[,] PlayerObject = new GameObject[MapHeight, MapWidth];
     void Start()
     {
+     
         for (int i = MapHeight - 2; i > 0; i--)
         {
             for (int j = 0; j < MapWidth; j++)
@@ -78,7 +104,7 @@ public class Board2Script : MonoBehaviour
                 MapDrwa[i, j] = 1;
             }
         }
-
+      
         for (int i = MapHeight - 1; i > 0; i--)
         {
             for (int j = 0; j < MapWidth; j++)
@@ -100,7 +126,7 @@ public class Board2Script : MonoBehaviour
                 BodarObj[i, j] = null;
                 Obj[i, j] = null;
                 Destroy(BodarObject[i, j]);
-                 Destroy(PlayerObject[i, j]);
+                Destroy(PlayerObject[i, j]);
             }
         }
         //マップ
@@ -127,10 +153,13 @@ public class Board2Script : MonoBehaviour
                 Debug.Log(NumWidth);
                 if (NumHight - i > 0)
                 {
-                    if (NumWidth + j <= 15)
+                    if (NumWidth+j >= 0)
                     {
-                        Map[NumHight - i, j + NumWidth] = Brock[Id, i, j];
-                        MapDrwa[NumHight - i, j + NumWidth] = Brock[Id, i, j];
+                        if (NumWidth + j <= 15)
+                        {
+                            Map[NumHight - i, j + NumWidth] = Brock[Id, i, j];
+                            MapDrwa[NumHight - i, j + NumWidth] = Brock[Id, i, j];
+                        }
                     }
                 }
               }
@@ -151,14 +180,29 @@ public class Board2Script : MonoBehaviour
         }
 
         //キー
-        if (NumWidth >= 1)
+        bool LeftKeyFlag = false;
+        bool RightKeyFlag = false;
+        for (int i = 0;i<MapHeight;i++)
+        {
+            if(Map[i,0] >= 1)
+            {
+                LeftKeyFlag = true;
+                break;
+            }
+            if (Map[i, MapWidth-1] >= 1)
+            {
+                RightKeyFlag = true;
+                break;
+            }
+        }
+        if (!LeftKeyFlag)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 NumWidth--;
             }
         }
-        if (NumWidth + 3 <= MapWidth - 1)
+        if (!RightKeyFlag)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
