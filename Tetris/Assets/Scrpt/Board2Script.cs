@@ -10,20 +10,21 @@ public class Board2Script : MonoBehaviour
     const int MapHeight = 16;
     const int BrockNum = 5;
     const int ID = 7;
-    const int initPos = 7;
+    const int initPos = 8;
 
     //初期化
-    int NumWidth = initPos;
+    int NumWidth = 0;
     int NumHight = 15;
     int Id = 0;
 
     Vector3 Position;
 
     bool HitFlag = false;
-   //生成するゲームオブジェクト
-   //public GameObject BoardBlock;
-   //public GameObject PlayerBlock;
-   
+    //生成するゲームオブジェクト
+    //public GameObject BoardBlock;
+    //public GameObject PlayerBlock;
+
+    int[,] MapDrwaCheck = new int[MapHeight, MapWidth];
 
     int[,] Map = new int[MapHeight, MapWidth];
     int[,] MapDrwa = new int[MapHeight, MapWidth];
@@ -92,7 +93,7 @@ public class Board2Script : MonoBehaviour
     GameObject[,] BodarObject = new GameObject[MapHeight, MapWidth];
 
     //GameObject PlayerObject;
-    GameObject[,] Obj = new GameObject[MapHeight, MapWidth];
+    //GameObject[,] Obj = new GameObject[MapHeight, MapWidth];
     GameObject[,] PlayerObject = new GameObject[MapHeight, MapWidth];
     void Start()
     {
@@ -112,30 +113,80 @@ public class Board2Script : MonoBehaviour
                 Zangai[i, j] = 0;
             }
         }
-        
+
+        //マップ
+        for (int i = MapHeight - 1; i > 0; i--)
+        {
+            for (int j = 0; j < MapWidth; j++)
+            {
+                Map[i, j] = MapDrwa[i, j] = 0;
+                ZangaiSave[i, j] = 0;
+            }
+        }
+        for (int i = 0; i < BrockNum; i++)
+        {
+            for (int j = 0; j < BrockNum; j++)
+            {
+                Save[i, j] = 0;
+            }
+        }
+        //ブロックをマップに
+        for (int i = 0; i < BrockNum; i++)
+        {
+            for (int j = 0; j < BrockNum; j++)
+            {
+                Debug.Log(NumWidth);
+                if (NumHight - i > 0)
+                {
+                    if (NumWidth + j >= 0)
+                    {
+                        if (NumWidth + j <= 15)
+                        {
+                            Map[NumHight - i, j + NumWidth] = Brock[Id, i, j];
+                            MapDrwa[NumHight - i, j + NumWidth] = Brock[Id, i, j];
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int i = MapHeight - 1; i > 0; i--)
+        {
+            for (int j = 0; j < MapWidth; j++)
+            {
+                if (MapDrwa[i, j] == 0)
+                {
+                    BodarObject[i, j] = GameObject.Instantiate<GameObject>(_Bodarblock);
+                    BodarObject[i, j].transform.localPosition = new Vector3(j, i, 0);
+                    BodarObj[i, j] = BodarObject[i, j];
+                    MapDrwaCheck[i, j] = 0;
+                    
+                }
+                if (MapDrwa[i, j] >= 1)
+                {
+                    BodarObject[i, j] = GameObject.Instantiate<GameObject>(_Playerblock);
+                    BodarObject[i, j].transform.localPosition = new Vector3(j, i, 0);
+                    BodarObj[i, j] = BodarObject[i, j];
+                    MapDrwaCheck[i, j] = 1;
+                }
+            }
+        }
     }
 
     // Update is called once per frame
     int num = 0;
     void Update()
     {
-        for (int i = 0; i < MapHeight; i++)
-        {
-            for (int j = 0; j < MapWidth; j++)
-            {
-                BodarObj[i, j] = null;
-                Obj[i, j] = null;
-                Destroy(BodarObject[i, j]);
-                Destroy(PlayerObject[i, j]);
-            }
-        }
+        
         //マップ
         for (int i = MapHeight - 1; i > 0; i--)
         {
             for (int j = 0; j < MapWidth; j++)
             {
                Map[i, j] = MapDrwa[i, j] = 0;
-               ZangaiSave[i, j] = 0;    
+               ZangaiSave[i, j] = 0;
+                //Debug.Log(BodarObj[i, j]);
+                //Debug.Log(BodarObject[i, j]);
             }
         }
          for (int i = 0; i < BrockNum; i++)
@@ -357,27 +408,39 @@ public class Board2Script : MonoBehaviour
         {
             for (int j = 0; j < MapWidth; j++)
             {
+                //Debug.Log(BodarObject[i, j] == _Playerblock);
                 if (MapDrwa[i, j] == 0)
                 {
-                    BodarObject[i, j] = GameObject.Instantiate<GameObject>(_Bodarblock);
-                    BodarObject[i, j].transform.localPosition = new Vector3(j, i, 0);
-                    BodarObj[i, j] = BodarObject[i, j];
+                    //Debug.Log();
+
+                   // Debug.Log(MapDrwa[i, j] != MapDrwaCheck[i, j]);
+                   /* Debug.Log(BodarObj[i, j]);
+                    Debug.Log(BodarObj[i, j] != BodarObj[1, 0]);*/
+                    
+                    if (MapDrwa[i,j] != MapDrwaCheck[i, j])
+                    { 
+                        Destroy(BodarObj[i,j]);
+                        BodarObject[i, j] = GameObject.Instantiate<GameObject>(_Bodarblock);
+                        BodarObject[i, j].transform.localPosition = new Vector3(j, i, 0);
+                        BodarObj[i, j] = BodarObject[i, j];
+                        MapDrwaCheck[i, j] = 0;
+                    }
                 }
                 if (MapDrwa[i, j] >= 1)
                 {
-                   PlayerObject[i, j] = GameObject.Instantiate<GameObject>(_Playerblock);
-                    PlayerObject[i, j].transform.localPosition = new Vector3(j, i, 0);
-                    Obj[i, j] = PlayerObject[i, j];
+                    if (MapDrwa[i, j] != MapDrwaCheck[i, j])
+                    {
+                        Destroy(BodarObj[i, j]);
+                        BodarObject[i, j] = GameObject.Instantiate<GameObject>(_Playerblock);
+                        BodarObject[i, j].transform.localPosition = new Vector3(j, i, 0);
+                        BodarObj[i, j] = BodarObject[i, j];
+                        MapDrwaCheck[i, j] = 1;
+                    }
                 }
             }
         }
-
-        
     }
 
 
 }
-
-//Instantiate( 生成するオブジェクト,  場所, 回転 );  回転はそのままなら↓
-
  
